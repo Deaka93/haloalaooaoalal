@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Rencana Keuangan Tyvania</title>
+  <style>
+    body {
+      font-family: monospace;
+      max-width: 600px;
+      margin: auto;
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
+    input, label {
+      display: block;
+      margin-top: 10px;
+      width: 100%;
+    }
+    input {
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 15px;
+      padding: 8px 12px;
+    }
+    pre {
+      background: #eee;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧾 Rencana Keuangan Tyvania</h1>
+
+  <label for="pemasukan">Pemasukan minggu ini:</label>
+  <input type="number" id="pemasukan" placeholder="contoh: 500000" />
+
+  <label for="jajan">Total jajan minggu ini:</label>
+  <input type="number" id="jajan" placeholder="contoh: 100000" />
+
+  <label for="shopee">Total belanja Shopee minggu ini:</label>
+  <input type="number" id="shopee" placeholder="contoh: 150000" />
+
+  <button onclick="hitung()">Hitung</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    function hitung() {
+      const pp = Number(document.getElementById('pemasukan').value);
+      const bensin = Number(document.getElementById('jajan').value);
+      const jajan = Number(document.getElementById('shopee').value);
+      const tabung = 0.5;
+
+      if (isNaN(pp) || isNaN(bensin) || isNaN(jajan)) {
+        alert("Isi semua kolom dengan angka yang valid.");
+        return;
+      }
+
+      const sisauang = pp - jajan - bensin;
+      let output = "Rencana Keuangan Mingguan Tyvania\n\n";
+      output += `Pemasukan: Rp${pp}\n`;
+      output += `Jajan: Rp${bensin}\n`;
+      output += `Shopee: Rp${jajan}\n\n`;
+
+      if (sisauang > 0) {
+        output += `Sisa uang setelah pengeluaran : Rp${sisauang}\n`;
+      } else if (sisauang < 0) {
+        output += `Hayo sisa uangmu minus : Rp${sisauang}\n`;
+      } else {
+        output += `Uangmu pas-pasan, tidak ada sisa\n`;
+      }
+
+      const tabungan = tabung * sisauang;
+      if (tabungan > 0) {
+        output += `Kamu bisa nabung : Rp${tabungan.toFixed(2)}\n`;
+      } else if (tabungan < 0) {
+        output += `Tabunganmu minus : Rp${tabungan.toFixed(2)}\n`;
+      } else {
+        output += `Tidak ada tabungan\n`;
+      }
+
+      const uangbebas = sisauang - tabungan;
+      if (uangbebas > 0) {
+        output += `SELAMAT TYVANIA, UANG KAMU SISA Rp${uangbebas.toFixed(2)}\n`;
+      } else if (uangbebas < 0) {
+        output += `KAMU GABISA NABUNG NYA!!!\n`;
+      } else {
+        output += `Uang bebasmu pas-pasan\n`;
+      }
+
+      document.getElementById('output').textContent = output;
+    }
+  </script>
+
+</body>
+</html>
